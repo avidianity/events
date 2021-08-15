@@ -8,6 +8,7 @@ export declare class Manager {
     getObservers(): Observers;
     on<T = any>(key: string, callback: (value: T) => void): Key;
     off(key: Key): void;
+    clear(): this;
     listen<T = any>(key: string, callback: (value: T) => void): Key;
     unlisten(key: Key): void;
     dispatch(name: string, value?: any): this;

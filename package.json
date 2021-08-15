@@ -1,11 +1,17 @@
 {
 	"name": "@avidian/events",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A pub/sub library for handling events.",
 	"main": "lib/index.js",
-	"repository": "https://github.com/avidianity/events",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/avidianity/events.git"
+	},
 	"author": "John Michael Manlupig",
 	"types": "types/index.d.ts",
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"type-check": "tsc --noEmit",
 		"type-check:watch": "npm run type-check -- --watch",
