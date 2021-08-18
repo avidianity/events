@@ -1,8 +1,12 @@
 import { Key } from './Key';
 import { Observer } from './Observer';
 
-type Observers = {
+export type Observers = {
 	[key: string]: Observer[];
+};
+
+export type BulkListeners = {
+	[key: string]: (value: any) => void;
 };
 
 export class Manager {
@@ -26,6 +30,16 @@ export class Manager {
 		}
 
 		return this;
+	}
+
+	bulk(payload: BulkListeners) {
+		const keys: Key[] = Object.keys(payload).map((key) => {
+			return this.listen(key, payload[key]);
+		});
+
+		return () => {
+			keys.forEach((key) => this.unlisten(key));
+		};
 	}
 
 	listen<T = any>(key: string, callback: (value: T) => void) {

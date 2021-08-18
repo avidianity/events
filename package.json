@@ -1,6 +1,6 @@
 {
 	"name": "@avidian/events",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A pub/sub library for handling events.",
 	"main": "lib/index.js",
 	"repository": {

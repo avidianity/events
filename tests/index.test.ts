@@ -10,6 +10,50 @@ describe('manager works as a pub/sub client', () => {
 		expect(key).toBeInstanceOf(Key);
 	});
 
+	it('creates keys for listeners and dispatches values', () => {
+		const manager = new Manager();
+
+		return new Promise<void>((resolve, reject) => {
+			const manager = new Manager();
+
+			let handle: NodeJS.Timeout | null = null;
+
+			manager.bulk({
+				key: () => {
+					if (handle) {
+						clearTimeout(handle);
+					}
+					manager.dispatch('final', null);
+				},
+				final: () => {
+					resolve();
+				},
+			});
+
+			manager.dispatch('key', null);
+
+			handle = setTimeout(reject, 1000);
+		});
+	});
+
+	it('removes keys for listeners and does not dispatch values', () => {
+		const manager = new Manager();
+
+		return new Promise<void>((resolve, reject) => {
+			const manager = new Manager();
+
+			const keys = manager.bulk({
+				key: reject,
+			});
+
+			keys();
+
+			manager.dispatch('key', null);
+
+			resolve();
+		});
+	});
+
 	it('removes a key for a listener', () => {
 		const manager = new Manager();
 
